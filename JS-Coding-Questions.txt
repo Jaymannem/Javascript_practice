@@ -1,0 +1,846 @@
+1. String Reverse:
+===================
+// 1. using for loop
+function reverseString1(str) {
+    let result = "";
+    for(let i = str.length-1; i>=0; i--){
+        result = result + str[i]
+    }
+    return result
+}
+
+console.log(reverseString1('hello')) // olleh
+
+
+// 2. Using split(""), reverse() and join()
+
+function reverseString2(str) {
+    return str.split("").reverse().join('')
+}
+console.log(reverseString2('hello'));  // olleh
+
+
+// 3. using reduce() method
+function reverseString3(str) {
+    return str.split("").reduce((current, reversed)=> reversed + current, "")
+}
+console.log(reverseString3("hello")) // olleh
+
+
+// 3. using spread operator 
+
+const s = "A🙂B";
+const reversed = [...s].reverse().join('');
+console.log(reversed)
+
+
+// 4. using for of loop
+function reverseString4(str) {
+ let output = "";
+ for(let char of str) {
+    output = char + output;
+ }
+ return output;
+}
+console.log(reverseString4("hello")) // olleh
+
+_________________________________________________________________________________________
+
+2. Words reverse:
+===================
+// 1. using split(), reverse and join() 
+const input = "hello     world";
+
+function reverseWords1(text) {
+    return text.split(" ").reverse().join(' ')
+}
+console.log(reverseWords1(input)) // world hello
+
+
+// 2. using destructuring
+
+const [a, b] = input.split(" ");
+const output = `${b} ${a}`;
+console.log(output); // world hello
+
+_________________________________________________________________________________________
+
+3. Find the longest word in the sentence:
+==========================================
+
+const input = "welcome to javascript coding";
+
+// 1. using for of
+function findLongest1(text) {
+    const words = text.split(" ");
+    
+    let longestWord = "";
+    for(let word of words) {
+        if(word.length > longestWord.length) {
+            longestWord = word
+        }
+    }
+    return longestWord
+}
+console.log(findLongest1(input)) // javascript
+
+
+// 2. using for loop
+function findLongest2(text) {
+    const words = text.split(" ");
+    let longestWord = "";
+
+    for(let i = 0; i< words.length; i++) {
+        if(words[i].length > longestWord.length) {
+            longestWord = words[i]
+        }
+    }
+    return longestWord
+}
+console.log(findLongest2(input)) // javascript
+
+// 3. using reduce method
+function findLongest3(text) {
+    const words = text.split(" ");
+    return words.reduce((current, longest) => current.length > longest.length ? current : longest, "")
+}
+console.log(findLongest3(input)) // javascript
+
+
+// 4. using filter
+function findLongest4(text) {
+    const words = text.split(" ");
+   
+    const wordsLength = words.map(word => word.length); // [ 7, 2, 10, 6 ]
+    const maxLength = Math.max(...wordsLength); // 10 
+    
+    const longestWord = words.filter(word => word.length === maxLength); // [ 'javascript' ]
+    return longestWord[0]
+    
+}
+console.log(findLongest4(input))
+
+
+__________________________________________________________________________________________________
+
+4. Write a function that checks whether a given string is a 
+palindrome or not?
+================================================================
+
+
+const palidromeText = "madam";
+const nonPalidromeText = "hello";
+
+// 1. using split, reverse and join methods
+function isPalindrome1(text) {
+    const reversedText = text.split("").reverse().join("");
+    return reversedText === text
+}
+console.log(isPalindrome1(palidromeText)) // true
+console.log(isPalindrome1(nonPalidromeText)) // false
+
+
+// 2. using for loop
+function isPalindrome2(text) {
+    const len = text.length;
+    for(let i=0; i<len/2; i++) {
+        if(text[i] !== text[len-1-i]){
+            return false
+        }
+    }
+    return true
+}
+console.log(isPalindrome2(palidromeText)) // true
+console.log(isPalindrome2(nonPalidromeText)) // false
+
+
+// 3. By reversing the string 
+function isPalindrome3(str) {
+    let reverseStr = "";
+
+    for(let i = str.length-1; i>=0; i--) {
+        reverseStr = reverseStr + str[i]
+    }
+
+    if(reverseStr === str) {
+        return true;
+    } else {
+        return false;
+    }
+}
+console.log(isPalindrome3(palidromeText)) // true
+console.log(isPalindrome3(nonPalidromeText)) // false
+
+
+// 4. Array.every()
+function isPalindrome4(str) {
+    const words = str.split("")
+    return words.every((char, index)=> char === str[str.length - index - 1])
+}
+
+console.log(isPalindrome4(palidromeText)) // true
+console.log(isPalindrome4(nonPalidromeText)) // false
+
+
+// 5. using two pointer 
+function isPalindrome5(text) {
+    let left = 0; 
+    let right = text.length - 1;
+
+    while(left < right) {
+        if(text[left] !== text[right]) {
+            return false
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
+console.log(isPalindrome5("madam")) // true
+console.log(isPalindrome5("love")) // false
+
+__________________________________________________________________________________________________
+
+5. Remove duplicate elements from array in javascript:
+=========================================================
+
+const arr = [1, 2, 2, 3, 4, 4, 5]
+
+// 1. using Set and Spread Operator 
+const result = [...new Set(arr)];
+console.log(result) // [ 1, 2, 3, 4, 5 ]
+
+// 2. using filter and indexOf
+const unique = arr.filter((item, index)=> arr.indexOf(item) === index);
+console.log(unique) // [ 1, 2, 3, 4, 5 ]
+
+
+// 3. using forEach and includes()
+
+const output = [];
+arr.forEach(element => {
+    if(!output.includes(element)) {
+        output.push(element)
+    }
+});
+console.log(output) // [ 1, 2, 3, 4, 5 ]
+
+
+// 4. using for of and includes
+
+const result1 = [];
+for(let element of arr) {
+    if(!result1.includes(element)) {
+        result1.push(element)
+    }
+}
+console.log(result1) // [ 1, 2, 3, 4, 5 ]
+
+
+// 5. using reduce and includes
+let uniqueValues = arr.reduce((curr, acc)=> {
+    if(!curr.includes(acc)){
+        curr.push(acc)
+    }
+    return curr;
+},[])
+console.log(uniqueValues); // [ 1, 2, 3, 4, 5 ]
+
+
+// 6. using for of and indexOf
+let uniqueElements = [];
+for(let nums of arr) {
+    if(uniqueElements.indexOf(nums) === -1) {
+        uniqueElements.push(nums)
+    }
+}
+console.log(uniqueElements); // [ 1, 2, 3, 4, 5 ]
+ 
+__________________________________________________________________________________________________
+
+6. Write a function that checks whether two strings are 
+anagrams or not?
+===========================================================
+
+const input1 = "listen";
+const input2 = "silent";
+
+// 1. Using split, sort and join methods
+function isAnagram1(str1, str2) {
+    const sortStr1 = str1.split('').sort().join(''); // eilnst
+    const sortStr2 = str2.split('').sort().join(''); // eilnst
+    return sortStr1 === sortStr2
+};
+console.log(isAnagram1(input1, input2)) // true
+
+// 2. using frequency counter
+function isAnagram2(str1, str2) {
+    const str1Length = str1.length;
+    const str2Length = str2.length;
+
+    if(str1Length !== str2Length) {
+        return false
+    }
+
+    let count1 = {};
+    let count2 = {};
+
+    for(let text1 of str1) {
+        count1[text1] = (count1[text1] || 0) + 1;
+    }
+
+    for(let text2 of str2) {
+        count2[text2] = (count2[text2] || 0) + 1;
+    }
+
+    console.log(count1); // { l: 1, i: 1, s: 1, t: 1, e: 1, n: 1 }
+    console.log(count2); // { s: 1, i: 1, l: 1, e: 1, n: 1, t: 1 }
+
+    for(let key in count1) {
+        if(count2[key] !== count1[key]) {
+            return false
+        }
+    }
+    return true;
+}
+console.log(isAnagram2(input1, input2)) // true
+
+
+
+// 3. using frequency counter
+function areAnagrams(str1, str2) {
+    if(str1.length !== str2.length) return false;
+
+    let charCount = {};
+
+    for(let text1 of str1) {
+        charCount[text1] = (charCount[text1] || 0) + 1;
+    }
+
+    for(let text2 of str2) {
+        charCount[text2] = (charCount[text2] || 0) - 1
+    };
+
+    for(let key in charCount) {
+        if(charCount[key] !== 0) {
+            return false
+        }
+    }
+    return true
+}
+console.log(areAnagrams(input1, input2)); // true
+
+__________________________________________________________________________________________________
+
+7. Write a function that returns the number of vowels in a string:
+===================================================================
+
+const input = "hello javascript";
+const vowels = "aeiou";
+
+// 1. using regex 
+function findVowels1(str) {
+    const count = str.match(/[aeiou]/gi).length;
+    return count;
+}
+
+console.log(findVowels1(input)) // 5
+
+
+// 2. using includes 
+function findVowels2(str) {
+    let count = 0;
+    for(let char of str) {
+        if(vowels.includes(char)) {
+            count++;
+        }
+    }
+    return count;
+}
+console.log(findVowels2(input));  // 5
+
+
+// 3. using filter method
+function findVowels3(str) {
+  let count = 0;
+  let vowles = "aeiou";
+  let words = str.split("");
+
+  return words.filter(char => vowels.includes(char)).length;
+}
+console.log(findVowels3(input)); // 5
+
+__________________________________________________________________________________________________
+
+8. Write a function to find the largest number in array:
+==========================================================
+const input = [2, 4, 6, 9, 3];
+
+// 1. using Math.max 
+function findLargestNum1(arr) {
+    return Math.max(...arr)
+}
+console.log(findLargestNum1(input)); // 9
+
+
+// 2. using for of 
+function findLargestNum2(arr) {
+    let max = arr[0]
+    for(let num of arr) {
+        if(num > max) {
+            max = num;
+        }
+    }
+    return max;
+}
+console.log(findLargestNum2(input)); // 9
+
+
+// 3. using reduce
+function findLargestNum3(arr) {
+    return arr.reduce((current, largest)=> current > largest ? current : largest, arr[0])
+}
+console.log(findLargestNum3(input)); // 9
+
+
+// 4. using for loop
+function findLargestNum4(arr) {
+    let largestNum = arr[0];
+
+    for(let i=1; i< arr.length; i++) {
+        if(arr[i] > largestNum) {
+            largestNum = arr[i]
+        }
+    }
+    return largestNum;
+}
+console.log(findLargestNum4(input)); // 9
+
+__________________________________________________________________________________________________
+
+9. Check if a given number is prime number or not?
+=====================================================
+
+const input1 = 7;
+const input2 = 12;
+
+function isPrime(num) {
+    for(let i=2; i <= num/2; i++) {
+        if(num % i === 0) {
+            return false
+        }
+    }
+    return true;
+}
+console.log(isPrime(input1)); // true
+console.log(isPrime(input2)); // false
+
+
+// way 2
+function isPrime1(num) {
+    let isPrime = true;
+    for(let i=2; i<num; i++) {
+        if(num % i === 0) {
+            isPrime = false
+        }
+    }
+    return isPrime
+}
+console.log(isPrime1(input1))
+console.log(isPrime1(input2))
+
+
+// find prime numbers between 100 to 200
+let start = 100;
+let end = 200;
+
+function isPrime2(num) {
+    for(let i=2; i< num; i++) {
+        if(num % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function findPrimesInRange(num1, num2) {
+    let primeNumbers = [];
+    for(let i = num1; i<= num2; i++) {
+        if(isPrime2(i)) {
+            primeNumbers.push(i)
+        }
+    }
+    return primeNumbers;
+}
+console.log(findPrimesInRange(start, end))
+
+__________________________________________________________________________________________________
+
+10. Write a function to calculate the factorial of a number:
+===============================================================
+
+function findFactorial1(num) {
+    if(num === 0) {
+        return 1;
+    }
+
+    let factorial = 1;
+
+    for(let i=1; i<=num; i++) {
+        factorial *= i
+    }
+    return factorial;
+}
+
+console.log(findFactorial1(5)); // 120
+
+function findFactorial2(num) {
+    if(num === 0 || num === 1) {
+        return 1
+    } else {
+        return num * findFactorial2(num-1)
+    }
+}
+console.log(findFactorial2(5)); // 120
+
+__________________________________________________________________________________________________
+
+11. Write a Program to find a sum of an array?:
+==================================================
+
+const input = [10, 20, 30];
+
+// 1. using for loop 
+function findSum(nums) {
+    let result = 0; 
+
+    for(let i=0; i< nums.length; i++) {
+        result =  nums[i] + result
+    }
+    return result;
+}
+console.log(findSum(input)); // 60
+
+
+// 2. using reduce method
+function findSum1(nums) {
+    return nums.reduce((current, sum) => current + sum, 0)
+}
+
+console.log(findSum1(input)); // 60
+
+
+// 3. using for of
+function findSum2(nums) {
+    let total = 0;
+    for(let num of nums) {
+        total = num + total;
+    }
+    return total;
+}
+console.log(findSum2(input)); // 60
+
+__________________________________________________________________________________________________
+
+12. How to create an array programmitically from 1 to 7:
+===========================================================
+// 1. using for loop
+
+let start = 1; 
+let end = 7;
+
+function createArray1(num1,num2) {
+    let result = [];
+    for(let i=num1; i<= num2; i++) {
+        result.push(i)
+    }
+    return result;
+}
+
+console.log(createArray1(start, end)); // [1, 2, 3, 4, 5, 6, 7]
+
+// 2. using Array.of();
+const arr = Array.of(1,2,3,4,5,6,7);
+console.log(arr); // [1, 2, 3, 4, 5, 6, 7]
+
+
+// 3. using Array.from 
+const arr1 = Array.from({length: 7}, (_, i)=> i+1);
+console.log(arr1); // [1, 2, 3, 4, 5, 6, 7]
+
+
+__________________________________________________________________________________________________
+
+13. How to create array empty:
+===============================
+
+
+// 1. using length = 0 
+const array = [1, 2, 3, 4, 5];
+array.length = 0;
+console.log(array); // []
+
+
+// 2. using []
+let array1 = [1, 2, 3, 4, 5];
+array1 = [];
+console.log(array1); // []
+
+
+// 3. using splice
+let array2 = [1, 2, 3, 4, 5];
+array2.splice(0, array2.length);
+console.log(array2); // []
+
+
+// 4. using pop 
+let array4 = [1, 2, 3, 4, 5];
+while(array4.length > 0) {
+    array4.pop()
+}
+console.log(array4);  // []
+
+__________________________________________________________________________________________________
+
+14. Write a Program to count the occurrences of a character in a string:
+==========================================================================
+
+const input = "jaya";
+const char = "a";
+
+function getOccurancesCount(text, char) {
+    let count = 0;
+
+    for(let i=0; i<text.length; i++) {
+        if(text[i] === char) {
+            count++;
+        }
+    }
+    return count;
+}
+console.log(getOccurancesCount(input, char)); // 2
+__________________________________________________________________________________________________
+
+15. Find the Intersection of Two Arrays in JavaScript?
+==========================================================
+
+const input1 = [1, 2, 3];
+const input2 = [2, 3, 4];
+
+// 1. using Set Method
+function findCommonValues(arr1, arr2) {
+    const set2 = new Set(arr2);
+
+    return arr1.filter(value => set2.has(value))
+}
+
+console.log(findCommonValues(input1, input2)); // [ 2, 3 ]
+
+
+// using filter and includes methods
+function findCommonValues2() {
+    return input1.filter(element => input2.includes(element));
+}
+console.log(findCommonValues2()); // [ 2, 3 ]
+
+
+// using for loop
+function findCommonValues3(arr1, arr2) {
+    let output = [];
+    for(let i=0; i< arr1.length; i++) {
+        for(let j=0; j<arr2.length; j++) {
+            if(arr1[i] === arr2[j]) {
+                output.push(arr1[i])
+            }
+        }
+    }
+    return output
+}
+
+console.log(findCommonValues3(input1, input2)); // [ 2, 3 ]
+
+
+// using set method 
+function findCommonValues4(arr1, arr2) {
+    let result = [];
+
+    const S1 = new Set(arr1);
+    const S2 = new Set(arr2);
+
+    for(let element of S1) {
+        if(S2.has(element)) {
+            result.push(element)
+        }
+    }
+
+    return result;
+}
+
+console.log(findCommonValues4(input1, input2)); // [ 2, 3 ]
+
+
+// using reduce 
+const intersection = input1.reduce((acc, curr)=> {
+    if(input2.includes(curr)) {
+        acc.push(curr)
+    };
+    return acc;
+}, []);
+console.log(intersection); // [ 2, 3 ]
+
+
+__________________________________________________________________________________________________
+
+16. Remove vowels from string:
+==============================
+
+
+// 1. using for of
+let vowels = "aeiou";
+function removeVowels(str) {
+    let result = ""
+    for(let char of str) {
+        if(!vowels.includes(char)) {
+            result = result + char
+        }
+    }
+    return result
+}
+console.log(removeVowels('hello'));
+
+
+// 2. using filter method
+function removeVowels1(text) {
+    return text.split("").filter(element => !vowels.includes(element)).join('')
+}
+console.log(removeVowels1('test')); // tst
+
+
+// 3. using reducer
+function removeVowels2(text) {
+    const result = text.split("").reduce((acc, curr) => {
+        if(!vowels.includes(curr)) {
+            acc = acc + curr
+        }
+        return acc
+    }, "")
+    return result
+}
+console.log(removeVowels2('world')); // wrld
+
+
+// 4. using for loop
+function removeVowel3(text) {
+    let result = ""
+    for(let i=0; i<text.length; i++) {
+        if(!vowels.includes(text[i])) {
+            result = result + text[i]
+        }
+    }
+    return result;
+}
+console.log(removeVowel3("javascript")); // jvscrpt
+
+__________________________________________________________________________________________________
+
+17. Convert Array to sub array:
+=================================
+
+let input = [1,2,3,4,5,6,7,8,9,10]
+let size = 3;
+
+var chunk = function(arr, size) {
+    let finalResult = [];
+    let subArray = [];
+
+    for(let i=0; i< arr.length; i++) {
+        subArray.push(arr[i]);
+
+        if(subArray.length === size) {
+            finalResult.push(subArray);
+            subArray = [];
+        }
+    }
+    
+    if(subArray.length) {
+        finalResult.push(subArray)
+    }
+
+    return finalResult
+};
+
+console.log(chunk(input, size)); // [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ], [ 10 ] ]
+
+__________________________________________________________________________________________________
+
+18. Javascript Program to Capitalize First Letter in a String:
+================================================================
+
+
+const input = "this is jay mannem"
+
+// 1. using for of 
+function getCapitalize(text) {
+    const words = text.split(" ");
+    let result = [];
+    for(let word of words) {
+        let capitalize = word.charAt(0).toUpperCase() + word.substr(1)
+        result.push(capitalize)
+    }
+    return result.join(" ")
+}
+
+console.log(getCapitalize(input));  // This Is Jay Mannem
+
+__________________________________________________________________________________________________
+
+19. Remove the numeric values from string:
+============================================
+
+const input = "a1b2c3";
+
+function removeNumbers(text) {
+    let result = "";
+    let str = text.split("")
+    for(let word of str) {
+        if(isNaN(word)) {
+            result = result + word
+        }
+    }
+    return result
+}
+
+console.log(removeNumbers(input));
+
+
+const output = input.split("").filter(char => isNaN(char)).join('')
+console.log(output)
+
+
+__________________________________________________________________________________________________
+
+21. flattening an array in JavaScript 
+======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________________________________________________________________________

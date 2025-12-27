@@ -1,0 +1,35 @@
+1. JavaScript Engine 
+2. Event Loop
+3. Variables 
+4. Datatypes 
+5. Functions 
+    Named function (function declaration)
+    Anonymous function (function expression)
+    IIFE 
+    Arrow functions 
+    Higher order functions 
+    Closures
+    Pure Functions
+    Generator function
+    Recursive 
+    Callback functions 
+    constructor funtions
+
+
+6. call, apply and bind
+7. Loops 
+8. Array & Methods 
+9. Objects & Methods 
+10. Async Programming 
+        Callbacks 
+        Promises 
+        Async and Await 
+
+11. this keyword 
+12. Scope 
+13. Event loop 
+14. JS Engine 
+15. Strict Mode 
+16. Type coercion 
+17. 
+18. 
