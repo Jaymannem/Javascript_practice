@@ -1,11 +1,11 @@
-1. JavaScript Engine 
-2. Event Loop
-3. Variables 
-4. Datatypes 
-5. Functions 
-    Named function (function declaration)
-    Anonymous function (function expression)
-    IIFE 
+1. JavaScript Engine                        ------> Done
+2. Event Loop                               ------> Done
+3. Variables                                ------> Done
+4. Datatypes                                ------> Done
+5. Functions        
+    Named function (function declaration)   ------> Done
+    Anonymous function (function expression) ------> Done
+    IIFE                                     ------> Done
     Arrow functions 
     Higher order functions 
     Closures
@@ -27,9 +27,154 @@
 
 11. this keyword 
 12. Scope 
-13. Event loop 
-14. JS Engine 
+13. Event loop                          ----> Done
+14. Execution Context                   ----> Done
 15. Strict Mode 
-16. Type coercion 
-17. 
+16. Type coercion                       ----> Done
+17. Design Patterns 
 18. 
+
+
+
+___________________________________________________________________________________
+
+Functions:
+===========
+
+
+******************************************************************************
+
+3. Arrow Functions:
+=====================
+    Arrow functions were introduced in ES6.
+
+    They provide a shorter syntax for writing functions and handle this.
+
+        const add = (a, b) => a + b;
+
+    Arrow functions DO NOT have their own this.
+
+    Normal functions HAVE their own this and this depends on how the 
+    function is called.
+
+
+function Person() {
+    this.age = 28;
+    
+    setTimeout(()=> {
+        console.log(this.age)  // -----> 28
+    }, 1000)
+}
+
+Person();
+
+
+function Person1() {
+    this.age = 28;
+
+    setTimeout(function() {
+        console.log(this.age) // ----> undefined
+    }, 1000)
+}
+
+Person1();
+
+
+Arrow function works because it uses the same this as Person. 
+Normal function fails because it creates a new this.
+
+Arrow function uses parent's this. ---> 28
+
+Normal function Creates its own this  ---> undefined
+
+
+
+If we want to fix it with named function:
+==========================================
+
+// Way 1:  use self keyword, stores this in variable
+
+function Person2() {
+    this.age =28;
+    const self = this;
+
+    setTimeout(function() {
+        console.log(self.age); // ----> 28
+    }, 1000)
+}
+
+Person2();
+
+
+// way 2: using bind
+function Person3() {
+    this.age = 28;
+
+    setTimeout(function() {
+        console.log(this.age); // ----> 28
+    }.bind(this), 1000)
+}
+
+Person3();
+
+
+***********************************************************************************
+
+4. IIFE:
+==========
+    Stands for Immediately Invoked Function Expression. 
+
+    It runs immediately after created. 
+
+Purpose: 
+    To avoid polluting the global scope.
+
+JavaScript has a global scope, Variables in global scope can conflict So 
+IIFE creates a private scope.
+
+It is mainly used to create a private scope and avoid global variable 
+pollution.
+
+
+Syntax:
+--------
+
+(function () {
+    console.log("I am an IIFE");
+})();
+
+
+IIFE.js:
+---------
+var counter = (function() {
+    var count = 0;
+
+    return {
+        increment: () => {
+            count++;
+        }, 
+
+        decrement: () => {
+            count--;
+        },
+
+        getCount: function() {
+            return count;
+        }
+    }
+})();
+
+console.log(counter.getCount()); // 0
+counter.increment();
+counter.increment();
+counter.increment();
+
+console.log(counter.getCount()); // 3
+
+counter.decrement();
+console.log(counter.getCount()); // 2
+
+console.log(counter.count); // undefined (can't access private variables)
+
+
+***********************************************************************************
