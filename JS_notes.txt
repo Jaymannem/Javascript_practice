@@ -27,35 +27,101 @@
 
 11. this keyword 
 12. Scope 
-13. Event loop                          ----> Done
-14. Execution Context                   ----> Done
-15. Strict Mode 
-16. Type coercion                       ----> Done
-17. Design Patterns 
-18. 
-
+13. Execution Context                   ----> Done
+14. Strict Mode 
+15. Type coercion                       ----> Done
+16. Design Patterns 
+18. Debounce and Throttling             ----> Done
+19. Event Flow                          ----> Done
+20. defer and async
 
 
 ___________________________________________________________________________________
 
 Functions:
 ===========
+1. Named Functions:
+===================
+It is defined using the function keyword followed by a function name.
+
+Named function declarations are hoisted, meaning they can be used 
+before they are defined.
+
+Named function is also called a function declaration.
+
+Syntax:
+--------
+function functionName(parameters) {
+  // function body
+}
+
+functionName("JavaScript);
 
 
-******************************************************************************
+
+Example:
+---------
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(5, 3)); // Output: 8
+
+
+Advantages:
+===========
+1. Reusability 
+2. Better Readability 
+3. Helpful in debugging
+
+
+
+2. Anonymous functions:
+========================
+An anonymous function is a function without a name.
+
+Anonymous functions are also called a function expression.
+
+
+example:
+--------
+const greet = function () {
+  console.log("Hello!");
+};
+
+greet();
+
+
+Commonly used where functions are needed temporarily.
+
+
+Where Anonymous Functions Are Used:
+------------------------------------
+1. Callbacks
+2. Event handlers 
+3. Timers 
+4. Array methods
+
+
+setTimeout(function () {
+  console.log("Executed after 2 seconds");
+}, 2000);
+
+
+
 
 3. Arrow Functions:
 =====================
-    Arrow functions were introduced in ES6.
+Arrow functions were introduced in ES6.
 
-    They provide a shorter syntax for writing functions and handle this.
+They provide a shorter syntax for writing functions and handle this.
 
-        const add = (a, b) => a + b;
+    const add = (a, b) => a + b;
 
-    Arrow functions DO NOT have their own this.
+Arrow functions DO NOT have their own this.
 
-    Normal functions HAVE their own this and this depends on how the 
-    function is called.
+Normal functions HAVE their own this and this depends on how the 
+function is called.
 
 
 function Person() {
@@ -118,13 +184,13 @@ function Person3() {
 Person3();
 
 
-***********************************************************************************
+
 
 4. IIFE:
 ==========
-    Stands for Immediately Invoked Function Expression. 
+Stands for Immediately Invoked Function Expression. 
 
-    It runs immediately after created. 
+It runs immediately after created. 
 
 Purpose: 
     To avoid polluting the global scope.
@@ -177,4 +243,619 @@ console.log(counter.getCount()); // 2
 console.log(counter.count); // undefined (can't access private variables)
 
 
+
+
+5. Callback functions:
+========================
+A callback function is a function that is passed as an argument to 
+another function and executed later.
+
+
+example:
+---------
+function greet(callback) {
+  callback();
+}
+
+greet(function () {
+  console.log("Hello from callback");
+});
+
+
+
+6. Constructor Function:
+==========================
+A constructor function is used to create objects using the new keyword.
+
+Helpful in when multiple instances of a specific type of object.
+
+example:
+--------
+function Person(name) {
+  this.name = name;
+}
+
+const person1 = new Person("Jaya");
+console.log(person1.name);
+
+
+
+7. Generator Function:
+=======================
+A generator function is a special type of function that can pause and 
+resume execution using the yield keyword.
+
+Generator functions are defined using an asterisk (*) after the 
+function keyword.
+
+
+example:
+--------
+function* numbers() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const gen = numbers();
+console.log(gen.next().value);
+
+* 
+
 ***********************************************************************************
+
+call, apply and bind():
+=========================
+
+* The main purpose is to explicitly control the value of this 
+inside a function.
+
+* Its value depends on how a function is called, not where we written.
+
+* These methods are useful for managing function context.
+
+* Commonly used when sharing functions between objects.
+
+
+call():
+=======
+
+
+
+
+
+
+
+
+___________________________________________________________________________________
+
+Shallow and Deep Copy:
+=======================
+
+Shallow Copy:
+==============
+* A shallow copy copies only the first level of an object.
+
+* In Shallow Copy: 
+    Top‑level changes ❌ do NOT affect original
+    Nested object changes ✅ DO affect original
+
+Example:
+--------
+
+const original = {
+  name: "Jaya",
+  skills: {
+    primary: "JavaScript",
+    secondary: "React"
+  }
+};
+
+// Shallow copy
+const shallowCopy = { ...original };
+
+shallowCopy.name = "Jaswik";
+shallowCopy.skills.primary = "Node.js";
+
+console.log(original.name);             // "Jaya"
+console.log(original.skills.primary);   // "Node.js"
+
+* name is a primitive value → copied independently
+* address is an object → both copies point to the same address object.
+* Shallow copy copies references only.
+
+Ways of Creating a Shallow Copy:
+==================================
+    1. Spread Operator 
+    2. Object.assign({})
+
+When to Use Shallow Copy:
+=========================
+    1. When Object has no nested objects
+    2. In Simple state updates
+
+
+
+
+Deep Copy:
+===========
+* A deep copy copies everything, including nested objects.
+
+const original = {
+  name: "Jaya",
+  skills: {
+    primary: "JavaScript",
+    secondary: "React"
+  }
+};
+
+// Deep copy
+const deepCopy = JSON.parse(JSON.stringify(original));
+
+deepCopy.name = "jaswik"
+deepCopy.skills.primary = "Node.js";
+
+console.log(original.name); // Jaya
+console.log(original.skills.primary); // "JavaScript" ✅
+
+* Changes anywhere(top or nested level) do not affect original object.
+
+
+
+Creating a Deep Copy:
+=====================
+    1. JSON.parse() & JSON.stringify()
+    2. structuredClone()
+
+
+When to Use Shallow Copy:
+==========================
+    1. Complex nested data
+    2. State management 
+
+
+In Simple Terms: 
+    1. In a shallow copy, changes to nested objects affect the original 
+       because references are shared.
+
+    2. In a deep copy, all nested objects are independently copied, 
+       Changes anywhere(top or nested level) do not affect original.
+
+
+Limitation of JSON Method:
+==========================
+Does NOT work with:
+
+    functions
+    undefined
+    Date
+    Map, Set
+
+___________________________________________________________________________________
+
+Debounce and Throttling:
+=========================
+
+Both helps optimize performance by reducing unnecessary function calls 
+and API requests. 
+
+Debounce:
+==========
+    * Used to Delay execution until the user stops doing an action.
+
+    * If the action keeps happening, the timer keeps resetting.
+
+    * Example: Search box
+        User typing -> j -> ja -> jay -> jaya 
+
+        API should be called only once, after user stops typing this is
+        called debounce.
+
+
+debounce.js:
+------------
+function debounce(fn, delay) {
+  let timer;
+
+  return function () {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn();
+    }, delay);
+  };
+}
+
+module.exports = debounce
+
+
+searchInput.js:
+----------------
+const debounce = require("./debounce");
+
+function searchInput() {
+    console.log("API called")
+};
+
+const debouncedSearch = debounce(searchInput, 1500);
+debouncedSearch();
+
+
+Use cases: 
+    1. Auto‑save form
+    2. Search input field
+    3. Window resize
+    4. Button clicks 
+
+
+
+Throttling:
+============
+    * function will be executed at once within a specified time interval.
+
+throttle.js:
+------------
+function Throttle(fn, limit) {
+  let flag = true;
+
+  return function () {
+    if (flag) {
+      fn();
+      flag = false;
+
+      setTimeout(() => {
+        flag = true;
+      }, limit);
+    }
+  };
+}
+
+module.exports = Throttle;
+
+
+scroll.js:
+-----------
+const Throttle = require("./throttle");
+
+function onScroll() {
+    console.log("Scroll event triggered")
+}
+
+const throttledScroll = Throttle(onScroll, 1000);
+throttledScroll();
+
+
+Use Cases of Throttle: 
+    1. Scroll events
+    2. Mouse movement
+    3. Drag & drop
+
+
+Debounce: Wait --> Execute 
+
+Throttling: Execute --> wait --> Execute 
+___________________________________________________________________________________
+
+Events Flow:
+=============
+    * Events are generally processed in three phases in the DOM:
+        1. Capturing phase 
+        2. Target phase 
+        3. Bubbling phase
+
+Bubbling Phase is the default phase. 
+
+
+Event propagation: 
+===================
+    Event propagation describes how an event travels through the 
+    DOM tree when an event occurs.
+
+    When we click an element:
+        1. The event doesn’t stay on that element only
+        2. It moves through multiple elements in a specific order
+
+
+1. Event Capturing Phase:
+==========================
+* events travels from top to bottom in the DOM tree.
+
+* Flow direction : Parent → Child
+
+index.html:
+-----------<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturing Phase</title>
+</head>
+<body>
+    <h1>Capturing Phase</h1>
+    <div id="parent">
+        Parent
+        <button id="child">Child Button</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
+
+
+index.js:
+---------
+
+document.getElementById("parent").addEventListener(
+  "click",
+  () => console.log("Parent - Capturing"),
+  true 
+);
+
+document.getElementById("child").addEventListener(
+  "click",
+  () => console.log("Child - Capturing"),
+  true
+);
+
+
+Flow (Order of Execution):
+----------------------------
+    1. parent 
+    2. child 
+
+* Event starts at document
+* Moves top → down
+* parent handler runs first
+* Then event reaches child
+
+Note: 
+-----
+* If we click on child button, first capturing parent and then child. 
+
+* If we click on parent, we can see only parent log.
+
+* If we don’t mention true, the event listener runs in the bubbling phase
+
+
+2. Target Phase:
+=================
+* It happens between capturing and bubbling.
+
+* Event reaches the element where the event was triggered.
+
+index.html:
+-----------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Target Phase Example</title>
+  <script src="./index.js" defer></script>
+</head>
+<body>
+
+  <h2>Target Phase Demo</h2>
+
+  <div id="parent" style="padding:20px; border:2px solid black;">
+    Parent
+    <button id="child">Child Button</button>
+  </div>
+
+</body>
+</html>
+
+
+index.js:
+----------
+// Parent listener
+document.getElementById("parent").addEventListener("click", (e) => {
+  console.log("PARENT handler");
+  console.log("eventPhase:", e.eventPhase);
+  console.log("target:", e.target.id);
+  console.log("currentTarget:", e.currentTarget.id);
+  console.log("-----");
+});
+
+// Child listener
+document.getElementById("child").addEventListener("click", (e) => {
+  console.log("CHILD handler (TARGET PHASE)");
+  console.log("eventPhase:", e.eventPhase);
+  console.log("target:", e.target.id);
+  console.log("currentTarget:", e.currentTarget.id);
+  console.log("-----");
+});
+
+* Capturing phase  --> eventPhase value is 1
+
+* Target phase  --> eventPhase value is 2
+
+* Bubbling phase  --> eventPhase value is 3
+
+* browser event system sets it automatically the eventPhase values.
+
+
+3. Bubbling Phase:
+====================
+* events travels from top to bottom in the DOM tree.
+
+* Flow direction : Child -> Parent
+
+* Event bubbling is the default behavior in JavaScript.
+
+index.html:
+------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Bubbling Example</title>
+  <script src="./index.js" defer></script>
+</head>
+<body>
+
+  <h2>Event Bubbling Phase</h2>
+
+  <div id="parent" style="padding:20px; border:2px solid black;">
+    Parent
+    <button id="child">Child Button</button>
+  </div>
+
+</body>
+</html>
+
+
+index.js:
+----------
+
+// Parent bubbling listener
+document.getElementById("parent").addEventListener("click", (e) => {
+  console.log("PARENT handler");
+});
+
+// Child bubbling listener
+document.getElementById("child").addEventListener("click", (e) => {
+  console.log("CHILD handler (TARGET)");
+});
+
+
+
+Event delegation:
+==================
+* Event delegation is a technique where we attach one event listener to a 
+parent element instead of adding listeners to each child element.
+
+* Events bubble up from child → parent
+
+* Parent can detect which child was clicked using event.target
+
+Without delegation: 
+    We need to add a separate listener to every child
+
+With delegation: 
+    add one listener on the parent and handle clicks for all children 
+    via bubbling using event.target
+
+without delegation:
+====================
+
+index.html:
+-----------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Without Delegation</title>
+  <!-- defer ensures DOM is parsed before JS runs -->
+  <script src="./index.js" defer></script>
+</head>
+<body>
+
+  <h1>Counter (Without Delegation)</h1>
+
+  <p id="count">0</p>
+
+  <button id="inc">Increment</button>
+  <button id="dec">Decrement</button>
+
+</body>
+</html>
+
+
+index.js:
+---------
+
+// Simple counter state
+let count = 0;
+
+// Update UI
+function render() {
+  document.getElementById("count").textContent = String(count);
+}
+
+// Attach listeners to EACH button directly (no delegation)
+document.getElementById("inc").addEventListener("click", () => {
+  count += 1;
+  render();
+  console.log("Increment clicked (no delegation)");
+});
+
+document.getElementById("dec").addEventListener("click", () => {
+  count -= 1;
+  render();
+  console.log("Decrement clicked (no delegation)");
+});
+
+// Initial render
+render();
+
+
+* Each button has its own listener.
+
+
+with delegation:
+==================
+
+index.html:
+------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>With Delegation</title>
+  <script src="./withDelegation.js" defer></script>
+</head>
+<body>
+
+  <h1>Counter (With Delegation)</h1>
+
+  <p id="count">0</p>
+
+  <!-- One parent container for buttons -->
+  <div id="controls">
+    <button data-action="inc">Increment</button>
+    <button data-action="dec">Decrement</button>
+  </div>
+
+</body>
+</html>
+
+
+index.js:
+----------
+
+let count = 0;
+
+function render() {
+  document.getElementById("count").textContent = String(count);
+}
+
+// ONE listener on the parent container (delegation)
+document.getElementById("controls").addEventListener("click", (e) => {
+  // Guard: respond only if a button was clicked
+  if (e.target.tagName !== "BUTTON") return;
+
+  const action = e.target.getAttribute("data-action");
+  if (action === "inc") {
+    count += 1;
+    console.log("Increment clicked (delegation)");
+  } else if (action === "dec") {
+    count -= 1;
+    console.log("Decrement clicked (delegation)");
+  }
+  render();
+});
+
+// Initial render
+render();
+
+
+
+Stop Propagation:
+==================
+
+
+___________________________________________________________________________________
